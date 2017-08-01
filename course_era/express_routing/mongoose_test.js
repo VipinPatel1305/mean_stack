@@ -13,7 +13,7 @@ db.once('open', function () {
 
     // create a new dish
     Dishes.create( {
-      "name": "Uthapizza",
+      "name": "Uthapizza22",
       "image": "images/uthapizza.png",
       "category": "mains",
       "label": "Hot",
@@ -62,9 +62,9 @@ db.once('open', function () {
                         console.log('Updated Comments!');
                         console.log(dish);
 
-                        db.collection('dishes').drop(function () {
+                       // db.collection('dishes').drop(function () {
                             db.close();
-                        });
+                        //});
                     });
                 });
         }, 3000);

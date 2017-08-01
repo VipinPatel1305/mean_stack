@@ -8,6 +8,17 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var dishRouter = require('./routes/dishes');
+var mongoose = require('mongoose');
+
+var url = 'mongodb://localhost:27017/conFusion';
+mongoose.connect(url);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+    // we're connected!
+    console.log("Connected correctly to server");
+});
+
 var app = express();
 
 // view engine setup
