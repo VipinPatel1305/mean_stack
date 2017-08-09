@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl"> 
+
+<p>Today's welcome message is:</p>
+
+</div>
+
+<p>The $http service requests a page on the server, and the response is set as the value of the "myWelcome" variable.</p>
+
+<div ng-controller="myctrl">
+    <ul ng-repeat="obj in myArray">
+        <li>{{obj.name}}</li>
+    </ul>
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+  $scope.myArray = [];
+  $http.get("localhost:3000/lunchBox/normalUser")
+  .then(function(response) {
+       $scope.myArray = response;
+       console.log(response);
+  });
+});
+</script>
+
+</body>
+</html>

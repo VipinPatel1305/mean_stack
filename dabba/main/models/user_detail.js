@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var transT = ['credit', 'debit'];
-
+//http://angularcode.com/creating-rest-api-using-nodejs-and-consuming-in-angularjs/
 var transSchema = new Schema({
   quantity:{
     type: Number,
@@ -23,6 +23,11 @@ var transSchema = new Schema({
 });
 
 var UserSchema = new Schema({
+  userName:{
+    type: String,
+    required: true,
+    unique: true
+  },
   name:{
     type: String,
     required: true

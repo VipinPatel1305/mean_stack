@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl"> 
+
+<p>Welcome {User}</p>
+
+<p>Todays Menu</p>
+
+<ul ng-repeat="obj in users">
+    <li><label>Details: </label>{{obj.details}}</li>
+    <li><label>Cost </label>{{obj.cost}}</li>
+</ul>
+
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+  $http.get("/lunchBox/caterer/menu")
+  .then(function(response) {
+       $scope.users = response.data;
+       console.log(response.data);
+  });
+});
+</script>
+
+</body>
+</html>
