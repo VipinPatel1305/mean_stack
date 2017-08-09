@@ -5,22 +5,25 @@
 
 <div ng-app="myApp" ng-controller="myCtrl"> 
 
-<p>Register Yourself</p>
+<p>Register Yourself {{title}}</p>
 
 <form>
-  <label>User Name </label><input type="text" ng-model="username">
-  <label>Password </label><input type="password" ng-model="password">
-  <label>Name </label><input type="text" ng-model="name">
-  <label>Contact </label><input type="number" ng-model="contact">
+  <div><label>User Name </label><input type="text" ng-model="username"></div>
+  <div><label>Password </label><input type="password" ng-model="password"></div>
+  <div><label>Name </label><input type="text" ng-model="name"></div>
+  <div><label>Contact </label><input type="number" ng-model="contact"></div>
 </form>
 
-
+<button ng-click="register()">Register</button>
 </div>
 
 <script>
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope) {
-    $scope.firstname = "John";
+    $scope.name = "John";
+    $scope.register = function(){
+    $scope.title = $scope.username
+    };
 });
 </script>
 
