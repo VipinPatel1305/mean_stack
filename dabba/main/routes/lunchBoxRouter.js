@@ -91,7 +91,6 @@ app.delete('/caterer/menu/:itemId', function(req, res, next)
     if(err) throw err;
     res.json(menu);
   });
-  res.end('update item with id:' + req.params.itemId);
 });
 
 
