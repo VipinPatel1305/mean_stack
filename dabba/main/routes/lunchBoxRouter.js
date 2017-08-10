@@ -84,5 +84,15 @@ app.put('/caterer/menu/:itemId', function(req, res, next)
 });
 
 
+app.delete('/caterer/menu/:itemId', function(req, res, next)
+{
+  menuModel.findByIdAndRemove(req.params.itemId, function(err, menu)
+  {
+    if(err) throw err;
+    res.json(menu);
+  });
+  res.end('update item with id:' + req.params.itemId);
+});
+
 
 module.exports = app;

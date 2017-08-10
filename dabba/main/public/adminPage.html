@@ -1,28 +1,88 @@
 <!DOCTYPE html>
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+<head>
+  <style>
+  table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 50%;
+  }
+
+  td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 4px;
+  }
+
+  tr:nth-child(even) {
+      background-color: #dddddd;
+  }
+  </style>
+</head>
 <body>
 
 <div ng-app="myApp" ng-controller="myCtrl"> 
 
-<p>Registered Users</p>
+<h1>Welcome Admin</h1>
+<h2>Edit Menu</h2>
 
-<ul ng-repeat="obj in users">
-    <li><label>Name: </label>{{obj.name}}</li>
-    <li><label>Contact</label>{{obj.contact}}</li>
-</ul>
-
-
+  <form>
+    <table>
+      <tr>
+        <th>Details</th>
+        <th>Cost</th>
+      </tr>
+      <tr ng-repeat="obj in users">
+        <th ng-model="rm_details">{{obj.details}}</th>
+        <th>{{obj.cost}}</th>
+        <th><button ng-click="delete(obj._id)">delete</button></th>
+      </tr>
+      <tr>
+        <th><input type="text" ng-model="details"></th>
+        <th><input type="number" ng-model="cost"></th>
+        <th><button ng-click="add(details, cost)">add</button></th>
+      </tr>  
+    </table>
+  </form>
 </div>
 
 <script>
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $http) {
-  $http.get("/lunchBox/normalUser")
+
+  $scope.getMenu = function()
+  {
+  $http.get("/lunchBox/caterer/menu")
   .then(function(response) {
        $scope.users = response.data;
        console.log(response.data);
   });
+  };
+  
+ $scope.getMenu();
+  
+  $scope.add = function(details, cost){
+    var parameter = JSON.stringify({details:details, cost:cost});
+    $scope.title = $scope.username;
+      $http.post("/lunchBox/caterer/menu", parameter)
+      .then(function(response) {
+       console.log(response.data);
+       $scope.getMenu();
+      });    
+  };
+  
+  
+  $scope.delete = function(objectId){
+    var url = '/lunchBox/caterer/menu/' + objectId;
+    console.log('remove from menu:' + url);
+        $http.delete(url)
+    .then(function(response) {
+    console.log(response.data);
+    $scope.getMenu();
+    }); 
+  };  
 });
 </script>
 

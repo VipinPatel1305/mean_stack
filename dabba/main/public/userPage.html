@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+<head>
+  <style>
+  table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 50%;
+  }
+
+  td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 2px;
+  }
+
+  tr:nth-child(even) {
+      background-color: #dddddd;
+  }
+  </style>
+</head>
 <body>
 
 <div ng-app="myApp" ng-controller="myCtrl"> 
@@ -9,10 +29,19 @@
 
 <p>Todays Menu</p>
 
-<ul ng-repeat="obj in users">
-    <li><label>Details: </label>{{obj.details}}</li>
-    <li><label>Cost </label>{{obj.cost}}</li>
-</ul>
+<table>
+  <tr>
+    <th>Details</th>
+    <th>Cost</th>
+    <th>Quantity</th>
+  </tr>
+  <tr ng-repeat="obj in users">
+    <th>{{obj.details}}</th>
+    <th>{{obj.cost}}</th>
+    <th><input type="number" ng-model="quantity"></th>
+    <th><button ng-click="add()">add</button></th>
+  </tr>
+</table>
 
 
 </div>

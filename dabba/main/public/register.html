@@ -19,10 +19,15 @@
 
 <script>
 var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope) {
-    $scope.name = "John";
+app.controller('myCtrl', function($scope, $http) {
     $scope.register = function(){
-    $scope.title = $scope.username
+    var parameter = JSON.stringify({userName:$scope.username, name:$scope.name, contact:$scope.contact});
+    $scope.title = $scope.username;
+      $http.post("/lunchBox/normalUser", parameter)
+      .then(function(response) {
+       $scope.users = response.data;
+       console.log(response.data);
+      });
     };
 });
 </script>
