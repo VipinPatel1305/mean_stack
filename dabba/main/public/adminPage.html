@@ -35,10 +35,10 @@
         <th>Cost</th>
       </tr>
       <tr ng-repeat="obj in menuItem">
-        <th ng-model="rm_details">{{obj.details}}</th>
-        <th>{{obj.cost}}</th>
+        <th><input type="text" ng-model="obj.details"></input></th>
+        <th><input type="text" ng-model="obj.cost"></input></th>
         <th><button ng-click="delete(obj._id)">delete</button></th>
-        <th><button ng-click="update(obj._id)">update</button></th>
+        <th><button ng-click="update(obj)">update</button></th>
       </tr>
       <tr>
         <th><input type="text" ng-model="details"></th>
@@ -58,7 +58,6 @@ app.controller('myCtrl', function($scope, $http) {
   $http.get("/lunchBox/caterer/menu")
   .then(function(response) {
        $scope.menuItem = response.data;
-       console.log(response.data);
   });
   };
   
@@ -69,11 +68,10 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.cost = '';
     $scope.details = '';
     $scope.title = $scope.username;
-      $http.post("/lunchBox/caterer/menu", parameter)
-      .then(function(response) {
-       console.log(response.data);
-       $scope.getMenu();
-      });    
+    $http.post("/lunchBox/caterer/menu", parameter)
+    .then(function(response) {
+     $scope.getMenu();
+    });    
   };
   
   
@@ -87,9 +85,15 @@ app.controller('myCtrl', function($scope, $http) {
     }); 
   };  
   
-  $scope.update = function(objectId){
-    var url = '/lunchBox/caterer/menu/' + objectId;
-    console.log('need to implement update: ' + url);
+  $scope.update = function(object){
+    var url = '/lunchBox/caterer/menu/' + object._id;
+    var parameter = JSON.stringify({details:object.details, cost:object.cost});
+    $http.put(url, parameter).then(function(response)
+    {
+      console.log(response);
+      $scope.getMenu();
+    })
+    
   };  
   
 });

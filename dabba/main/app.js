@@ -4,11 +4,17 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var config = require('./config');
 var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local');
+
+
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 var lunchBoxRouter = require('./routes/lunchBoxRouter');
+var userAuth = require('./routes/userAuthRouter');
+var config = require('./config');
 var app = express();
 
 mongoose.connect(config.dbUrl);
@@ -30,10 +36,17 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
+
+var UserAuthModel = require('./models/userAuth');
+app.use(passport.initialize());
+passport.use(new LocalStrategy(UserAuthModel.authenticate()));
+passport.serializeUser(UserAuthModel.serializeUser());
+passport.deserializeUser(UserAuthModel.deserializeUser());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
+app.use('/user/auth', userAuth);
 app.use('/lunchBox', lunchBoxRouter);
 
 // catch 404 and forward to error handler

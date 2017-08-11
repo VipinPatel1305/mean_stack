@@ -5,28 +5,46 @@
 
 <div ng-app="myApp" ng-controller="myCtrl"> 
 
-<p>Registered Users</p>
+<h1>Welcome to Box {{token}}</h1>
 
 <form>
-  <div><label>User Name </label><input type="text" ng-model="username"></div>
-  <div><label>Password  </label><input type="password" ng-model="password"></div>
+  <table>
+    <tr>
+      <th>User Name</th>
+      <th><input type="text" ng-model="username"></th>
+    </tr>
+    <tr>
+      <th>Password</th>
+      <th><input type="password" ng-model="password"></th>
+    </tr>    
+    <tr>
+      <th><button ng-click="signin(username, password)">SignIn</button></th>
+      <th><button ng-click="register()">Register</button></th>
+    </tr>     
+  </table>
 </form>
-<button ng-click="login()">Register</button>
-<ul ng-repeat="obj in users">
-    <li><label>Name: </label>{{obj.name}}</li>
-    <li><label>Contact</label>{{obj.contact}}</li>
-</ul>
-
-
 </div>
 
 <script>
 var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope) {
-    $scope.name = "John";
-    $scope.login = function(){
-    $scope.title = $scope.username
+app.controller('myCtrl', function($scope, $http) {
+    
+    $scope.signin = function(username, password){
+      $scope.name = "signin";
+      var url = '/user/auth/login';
+      var parameter = JSON.stringify({username:username, password:password});
+      $http.post(url, parameter).then(function(response)
+      {
+        console.log(response);
+        $scope.token = response.data.token;
+      });      
+      
     };
+    
+    $scope.register = function(){
+      $scope.name = "register";
+    };     
+
 });
 </script>
 
