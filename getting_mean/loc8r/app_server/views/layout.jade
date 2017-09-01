@@ -8,4 +8,22 @@ html
     script(src='javascripts/jquery-3.2.1.min.js')
     script(src='bootstrap/js/bootstrap.min.js')
   body
-    block content
+    .navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          a.navbar-brand(href='/') Loc8r
+          button.navbar-toggle(type='button', data-toggle='collapse', datatarget='#navbar-main')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          #navbar-main.navbar-collapse.collapse
+            ul.nav.navbar-nav
+              li
+                a(href='/about/') About
+    .container
+      block content
+      
+      footer
+        .row
+          .col-x2-12
+            small &copy; Vips 2020
