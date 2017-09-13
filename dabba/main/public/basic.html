@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html ng-app="myApp"> 
+<head>
+<meta charset="utf-8">
+<title>Angular binding test</title>
+</head>
+<body ng-controller="myController">
+<script src="angular.min.js"></script>
+<script src="myApp.js"></script>
+<input ng-model="myInput"/>
+<h1>Hello {{myInput}}</h1>
+<p>Another output {{myInput}}</p>
+</body>
+</html>

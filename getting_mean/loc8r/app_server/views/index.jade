@@ -1,5 +1,29 @@
 extends layout
 
+
+		
 block content
-  h1 #{title}
-  p Welcome to #{title}
+	h1 #{title}
+	p Welcome to #{title}
+	div
+		p Hello!
+		p World!
+		ul
+			- for (var i = 0; i < 7; i++){
+			li Element #{i}
+			-}
+	- var ar = ["test1", "test2", "test3"];
+	ul
+		for names in ar		
+			li Variables: #{names}
+
+
+		
+	- var objList = [{name: "Test User",age: 56},{name: "Hello User",age: 66},{name: "Last User",age: 40}];									
+
+		
+	for objs in objList
+		h5=objs.name			
+			
+
+		
